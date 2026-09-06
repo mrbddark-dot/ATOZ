@@ -1,2 +1,10 @@
 #!/data/data/com.termux/files/usr/bin/bash
+
+echo "Checking for updates..."
+git pull --ff-only
+
+if [ $? -ne 0 ]; then
+    echo "Update failed. Starting current version..."
+fi
+
 python3 "$(dirname "$0")/PAPON.py"
