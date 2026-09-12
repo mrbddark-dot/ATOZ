@@ -1,3 +1,20 @@
 #!/data/data/com.termux/files/usr/bin/bash
+
 cd "$(dirname "$0")"
+
+SO="M.cpython-314-aarch64-linux-android.so"
+URL="https://github.com/mrbddark-dot/ATOZ/releases/latest/download/$SO"
+
+if [ ! -f "$SO" ]; then
+    echo "Downloading required component..."
+    if ! command -v curl >/dev/null 2>&1; then
+        pkg install -y curl
+    fi
+
+    curl -fL --retry 3 -o "$SO" "$URL" || {
+        echo "Failed to download required component."
+        exit 1
+    }
+fi
+
 exec python -c "import M"
